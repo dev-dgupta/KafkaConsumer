@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+<session-factory>
+    <!-- Database connection settings -->
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="connection.url">jdbc:mysql://10.150.200.209:3310/property?zeroDateTimeBehavior=convertToNull
+    </property>
+    <property name="connection.username">apptesting_user</property>
+    <property name="connection.password">App123Test@r321</property>
+    <!-- <property name="connection.url">jdbc:mysql://115.112.207.178:3311/property?zeroDateTimeBehavior=convertToNull</property>
+     <property name="connection.username">app_user</property>
+     <property name="connection.password">JOlsdf@s23KoewJO09use</property>-->
+    <property name="initialSize">1</property>
+    <property name="maxActive">3</property>
+    <property name="maxIdle">2</property>
+    <property name="minIdle">1</property>
+   <!-- <property name="connection.url">jdbc:mysql://115.112.207.171:3310/property?zeroDateTimeBehavior
+        =convertToNull</property>-->
+    <!--<property name="connection.url">jdbc:mysql://192.168.207.209:3310/property?zeroDateTimeBehavior=convertToNull</property>-->
+    <!--<property name="connection.username">batchdbuser</property>-->
+    <!--<property name="connection.password">j@1!NOs3d$f@2lnOr2Dlkd@4Q41dnfioDSA@#@SEF</property>-->
+    <!-- JDBC connection pool (use the built-in) -->
+    <property name="connection.pool_size">1</property>
+
+    <!-- SQL dialect -->
+    <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+    <!-- Enable Hibernate's automatic session context management -->
+    <!--<property name="current_session_context_class">thread</property>-->
+
+    <!-- Disable the second-level cache -->
+    <!--<property name="cache.provider_class">org.hibernate.cache.NoCacheRegionFactoryAvailableException</property>-->
+
+    <!-- Echo all executed SQL to stdout -->
+    <property name="show_sql">false</property>
+
+    <mapping class="com.magicbricks.AsyncDbKafka.domain.TppsmCounts"/>
+    <mapping class="com.magicbricks.AsyncDbKafka.domain.TppmtCounts"/>
+    <mapping class="com.magicbricks.AsyncDbKafka.domain.TppsmCountsId"/>
+    <mapping class="com.magicbricks.AsyncDbKafka.domain.TppmtCountsId"/>
+
+    </session-factory>
+</hibernate-configuration>

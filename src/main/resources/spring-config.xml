@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd ">
+    <context:annotation-config/>
+    <context:component-scan base-package="com.magicbricks"/>
+
+    <!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+            <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+            <property name="url" value="jdbc:mysql://115.112.207.178:3311/property?zeroDateTimeBehavior=convertToNull"/>
+            <property name="username" value="app_user"/>
+            <property name="password" value="JOlsdf@s23KoewJO09use"/>
+            &lt;!&ndash;<property name="validationQuery" value="SELECT 1"/>&ndash;&gt;
+        </bean>  -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://10.150.200.209:3310/property?zeroDateTimeBehavior=convertToNull"/>
+        <property name="username" value="apptesting_user"/>
+        <property name="password" value="App123Test@r321"/>
+        <!--<property name="validationQuery" value="SELECT 1"/>-->
+    </bean>
+    <tx:annotation-driven/>
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+    </bean>
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="pmtCountsDao" class="com.magicbricks.AsyncDbKafka.dao.TppmtCountsDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="psmCountsDao" class="com.magicbricks.AsyncDbKafka.dao.TppsmCountsDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+
+    <bean id="countUpdateService" class="com.magicbricks.AsyncDbKafka.service.CountUpdateService">
+    </bean>
+</beans>

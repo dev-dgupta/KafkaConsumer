@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration debug="true">
+	<appender name="APPROLLING"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>/logs/asynckafka/asynckafkaconsumer.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>/logs/asynckafka/asynckafkaconsumer.%i.log</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>5</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>10MB</maxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<pattern>%d %-5level [%thread] %logger: %msg%n %ex</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="ROLLING"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>/logs/asynckafka/fullasynckafkaconsumer.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>/logs/crm/fullasynckafkaconsumer.%i.log</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>20</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>20MB</maxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<pattern>%d %-5level [%thread] %logger: %msg%n %ex</pattern>
+		</encoder>
+	</appender>
+
+	
+
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
+			by default -->
+		<encoder>
+			<pattern>%d %-5level [%thread] %logger: %msg%n %ex</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="CONSOLE" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="STDOUT" />
+	</appender>
+
+	<logger name="com.test.ankur" level="DEBUG" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="APPROLLING" />
+		<appender-ref ref="ROLLING" />
+	</logger>
+
+	
+
+	<logger name="org.apache" additivity="false">
+		<level value="WARN" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="ROLLING" />
+	</logger>
+
+
+	<!-- <logger name="org" level="WARN" additivity="false">
+		<appender-ref ref="ROLLING" />
+	</logger>
+	<logger name="com" level="WARN" additivity="false">
+		<appender-ref ref="ROLLING" />
+	</logger> -->
+	<!-- <root level="ERROR"> -->
+	<root>
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="ROLLING" />
+		<appender-ref ref="APPROLLING" />
+	</root>
+</configuration>
